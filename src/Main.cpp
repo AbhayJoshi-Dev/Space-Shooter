@@ -1,7 +1,8 @@
-#include<iostream>
+#include"Game.h"
 
-void main()
+int main(int argc, char* args[])
 {
-	std::cout << "Hello World" << std::endl;
-	std::cin.get();
+	Game game;
+
+	return 0;
 }
