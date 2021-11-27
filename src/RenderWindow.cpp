@@ -21,6 +21,35 @@ void RenderWindow::CreateWindow(const char* windowTitle, int w, int h)
 		std::cout << "ERROR! Failed to create renderer" << SDL_GetError() << std::endl;
 }
 
+SDL_Texture* RenderWindow::LoadTexture(const char* filePath)
+{
+	SDL_Texture* tex = NULL;
+
+	tex = IMG_LoadTexture(renderer, filePath);
+
+	if (tex == NULL)
+		std::cout << "ERROR! Failed to load texture." << IMG_GetError() << std::endl;
+
+	return tex;
+}
+
+void RenderWindow::Render(SDL_Texture* tex)
+{
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+	src.w = 16;
+	src.h = 15;
+
+	SDL_Rect dst;
+	dst.x = 0;
+	dst.y = 0;
+	dst.w = src.w;
+	dst.h = src.h;
+
+	SDL_RenderCopy(renderer, tex, &src, &dst);
+}
+
 void RenderWindow::Clear()
 {
 	SDL_RenderClear(renderer);

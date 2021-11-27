@@ -1,6 +1,7 @@
 #pragma once
 
 #include<SDL.h>
+#include<SDL_image.h>
 
 class RenderWindow
 {
@@ -10,6 +11,8 @@ private:
 public:
 	RenderWindow();
 	void CreateWindow(const char* windowTitle, int w, int h);
+	SDL_Texture* LoadTexture(const char* filePath);
+	void Render(SDL_Texture* tex);
 	void Clear();
 	void Display();
 	void CleanUp();
