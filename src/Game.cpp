@@ -18,6 +18,8 @@ void Game::Init()
 	window.CreateWindow("Space Shooter", 800, 600);
 
 	playerTexture = window.LoadTexture("res/gfx/Player.png");
+
+	player.InitPlayer(Vector(400.f, 300.f), playerTexture);
 }
 
 void Game::GameLoop()
@@ -29,14 +31,31 @@ void Game::GameLoop()
 			switch (event.type)
 			{
 				case SDL_QUIT:
+				{
 					gameRunning = false;
 					break;
+				}
+				case SDL_KEYDOWN:
+				{
+					if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+					{
+						player.Turn(1);
+					}
+					else if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+					{
+						player.Turn(-1);
+					}
+				}
 			}
 		}
 
 		window.Clear();
 
-		window.Render(playerTexture);
+		window.RenderRotate(player, player.GetAngle());
+
+		std::cout << player.GetAngle() << std::endl;
+
+		player.Update();
 
 		window.Display();
 	}

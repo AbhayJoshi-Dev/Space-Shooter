@@ -5,6 +5,7 @@
 #include<SDL_image.h>
 
 #include"RenderWindow.h"
+#include"Player.h"
 
 class Game
 {
@@ -14,6 +15,8 @@ private:
 	RenderWindow window;
 
 	SDL_Texture* playerTexture;
+
+	Player player;
 
 public:
 	Game();

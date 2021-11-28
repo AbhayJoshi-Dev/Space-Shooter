@@ -33,21 +33,38 @@ SDL_Texture* RenderWindow::LoadTexture(const char* filePath)
 	return tex;
 }
 
-void RenderWindow::Render(SDL_Texture* tex)
+void RenderWindow::Render(Entity& entity)
 {
 	SDL_Rect src;
 	src.x = 0;
 	src.y = 0;
-	src.w = 16;
-	src.h = 15;
+	src.w = entity.GetCurrentFrame().w;
+	src.h = entity.GetCurrentFrame().w;
 
 	SDL_Rect dst;
-	dst.x = 0;
-	dst.y = 0;
+	dst.x = (int)entity.GetPos().GetX();
+	dst.y = (int)entity.GetPos().GetY();
 	dst.w = src.w;
 	dst.h = src.h;
 
-	SDL_RenderCopy(renderer, tex, &src, &dst);
+	SDL_RenderCopy(renderer, entity.GetTexture(), &src, &dst);
+}
+
+void RenderWindow::RenderRotate(Entity& entity, float angle)
+{
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+	src.w = entity.GetCurrentFrame().w;
+	src.h = entity.GetCurrentFrame().w;
+
+	SDL_Rect dst;
+	dst.x = (int)entity.GetPos().GetX();
+	dst.y = (int)entity.GetPos().GetY();
+	dst.w = src.w;
+	dst.h = src.h;
+
+	SDL_RenderCopyEx(renderer, entity.GetTexture(), &src, &dst, angle, NULL, SDL_FLIP_NONE);
 }
 
 void RenderWindow::Clear()

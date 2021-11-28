@@ -3,6 +3,8 @@
 #include<SDL.h>
 #include<SDL_image.h>
 
+#include"Entity.h"
+
 class RenderWindow
 {
 private:
@@ -12,7 +14,8 @@ public:
 	RenderWindow();
 	void CreateWindow(const char* windowTitle, int w, int h);
 	SDL_Texture* LoadTexture(const char* filePath);
-	void Render(SDL_Texture* tex);
+	void Render(Entity& entity);
+	void RenderRotate(Entity& entity, float angle);
 	void Clear();
 	void Display();
 	void CleanUp();
