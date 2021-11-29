@@ -17,7 +17,9 @@ void Game::Init()
 
 	window.CreateWindow("Space Shooter", 800, 600);
 
+
 	playerTexture = window.LoadTexture("res/gfx/Player.png");
+	//backgroundTexture = window.LoadTexture("res/gfx/Background.png");
 
 	player.InitPlayer(Vector(400.f, 300.f), playerTexture);
 }
@@ -26,10 +28,19 @@ void Game::GameLoop()
 {
 	while (gameRunning)
 	{
-		while (SDL_PollEvent(&event))
+		startTicks = SDL_GetTicks();
+
+		newTime = utils::HireTimeInSeconds();
+		frameTime = newTime - currentTime;
+		currentTime = newTime;
+		accumulator += frameTime;
+
+		while (accumulator >= timeStep)
 		{
-			switch (event.type)
+			while (SDL_PollEvent(&event))
 			{
+				switch (event.type)
+				{
 				case SDL_QUIT:
 				{
 					gameRunning = false;
@@ -45,19 +56,31 @@ void Game::GameLoop()
 					{
 						player.Turn(-1);
 					}
+
+					if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
+					{
+						player.Move();
+					}
+				}
 				}
 			}
+			accumulator -= timeStep;
 		}
+
+		alpha = accumulator / timeStep;
 
 		window.Clear();
 
+		//window.Render(backgroundTexture, 0.f, 0.f);
 		window.RenderRotate(player, player.GetAngle());
-
-		std::cout << player.GetAngle() << std::endl;
 
 		player.Update();
 
 		window.Display();
+
+		frameTicks = SDL_GetTicks() - startTicks;
+		if (frameTicks < 1000 / window.GetRefreshRate())
+			SDL_Delay(1000 / window.GetRefreshRate() - frameTicks);
 	}
 
 	window.CleanUp();

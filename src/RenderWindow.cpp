@@ -50,6 +50,23 @@ void RenderWindow::Render(Entity& entity)
 	SDL_RenderCopy(renderer, entity.GetTexture(), &src, &dst);
 }
 
+void RenderWindow::Render(SDL_Texture* tex, float x, float y)
+{
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+
+	SDL_QueryTexture(tex, NULL, NULL, &src.w, &src.h);
+
+	SDL_Rect dst;
+	dst.x = (int)x;
+	dst.y = (int)y;
+	dst.w = src.w;
+	dst.h = src.h;
+
+	SDL_RenderCopy(renderer, tex, &src, &dst);
+}
+
 void RenderWindow::RenderRotate(Entity& entity, float angle)
 {
 	SDL_Rect src;
@@ -65,6 +82,14 @@ void RenderWindow::RenderRotate(Entity& entity, float angle)
 	dst.h = src.h;
 
 	SDL_RenderCopyEx(renderer, entity.GetTexture(), &src, &dst, angle, NULL, SDL_FLIP_NONE);
+}
+
+int RenderWindow::GetRefreshRate()
+{
+	int displayIndex = SDL_GetWindowDisplayIndex(window);
+	SDL_DisplayMode mode;
+	SDL_GetDisplayMode(displayIndex, 0, &mode);
+	return mode.refresh_rate;
 }
 
 void RenderWindow::Clear()

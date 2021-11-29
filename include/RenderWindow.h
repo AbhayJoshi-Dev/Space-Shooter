@@ -15,7 +15,9 @@ public:
 	void CreateWindow(const char* windowTitle, int w, int h);
 	SDL_Texture* LoadTexture(const char* filePath);
 	void Render(Entity& entity);
+	void Render(SDL_Texture* tex, float x, float y);
 	void RenderRotate(Entity& entity, float angle);
+	int GetRefreshRate();
 	void Clear();
 	void Display();
 	void CleanUp();
