@@ -28,6 +28,9 @@ void Game::GameLoop()
 {
 	while (gameRunning)
 	{
+
+		utils::FPS();
+
 		startTicks = SDL_GetTicks();
 
 		newTime = utils::HireTimeInSeconds();
@@ -59,7 +62,12 @@ void Game::GameLoop()
 
 					if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
 					{
-						player.Move();
+						player.Move(1);
+					}
+
+					if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
+					{
+						player.Move(-1);
 					}
 				}
 				}

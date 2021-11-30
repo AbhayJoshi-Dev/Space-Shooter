@@ -13,7 +13,7 @@ public:
 	//Player() = default;
 	void InitPlayer(const Vector& pos, SDL_Texture* tex);
 	void Update();
-	void Move();
+	void Move(int dir);
 	void Turn(int dir);
 	float GetAngle();
 };
