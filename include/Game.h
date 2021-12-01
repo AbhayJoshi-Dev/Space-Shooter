@@ -7,6 +7,7 @@
 #include"RenderWindow.h"
 #include"Player.h"
 #include"Utils.h"
+#include"Bullet.h"
 
 class Game
 {
@@ -17,8 +18,10 @@ private:
 
 	SDL_Texture* playerTexture;
 	SDL_Texture* backgroundTexture;
+	SDL_Texture* bulletTexture;
 
 	Player player;
+	Bullet bullet;
 
 	const float timeStep = 0.01f;
 	float accumulator = 0.0f;
@@ -28,6 +31,8 @@ private:
 	float alpha = 0.0f;
 	int startTicks;
 	int frameTicks;
+
+	int mouseX, mouseY;
 
 public:
 	Game();

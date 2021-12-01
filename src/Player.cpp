@@ -1,6 +1,7 @@
-#include"Player.h"
-
+#include<cmath>
 #include<iostream>
+
+#include"Player.h"
 
 void Player::InitPlayer(const Vector& pos, SDL_Texture* tex)
 {
@@ -14,35 +15,33 @@ void Player::Update()
 {
 	SetPos(GetPos() + velocity);
 
-	thrust.SetAngle((angle - 90.f) * 3.14f / 180);
+	thrust.SetAngle(angle);
 }
 
 void Player::Move(int dir)
 {
-	if (velocity.GetLength() <= .9f)
-	{
-		if (dir == 1)
-			velocity.AddTo(thrust);
-		else if(dir == -1)
-			velocity.SubTo(thrust);
-	}
-
-	if (velocity.GetLength() > 1.f)
-		//velocity.SetLength(1.f);
-
-	std::cout << velocity.GetLength() << std::endl;
-}
-
-void Player::Turn(int dir)
-{
 	if (dir == 1)
 	{
-		angle += 5.0f;
+		velocity.AddTo(thrust);
 	}
 	else
 	{
-		angle -= 5.0f;
+		velocity.SubTo(thrust);
 	}
+	//if (velocity.GetLength() > 1.f)
+	//	velocity.SetLength(1.f);
+}
+
+void Player::Turn(int x, int y)
+{
+	int tempX = x - (int)GetPos().GetX();
+	int tempY = y - (int)GetPos().GetY();
+	angle = std::atan2(tempY, tempX);
+}
+
+void Player::Shoot(Bullet& e)
+{
+	e.thrust.SetLength(0.1f);
 }
 
 float Player::GetAngle()

@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Entity.h"
+#include"Bullet.h"
 
 class Player : public Entity
 {
@@ -14,6 +15,7 @@ public:
 	void InitPlayer(const Vector& pos, SDL_Texture* tex);
 	void Update();
 	void Move(int dir);
-	void Turn(int dir);
+	void Turn(int x, int y);
+	void Shoot(Bullet& e);
 	float GetAngle();
 };

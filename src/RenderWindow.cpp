@@ -39,7 +39,7 @@ void RenderWindow::Render(Entity& entity)
 	src.x = 0;
 	src.y = 0;
 	src.w = entity.GetCurrentFrame().w;
-	src.h = entity.GetCurrentFrame().w;
+	src.h = entity.GetCurrentFrame().h;
 
 	SDL_Rect dst;
 	dst.x = (int)entity.GetPos().GetX();
@@ -73,7 +73,7 @@ void RenderWindow::RenderRotate(Entity& entity, float angle)
 	src.x = 0;
 	src.y = 0;
 	src.w = entity.GetCurrentFrame().w;
-	src.h = entity.GetCurrentFrame().w;
+	src.h = entity.GetCurrentFrame().h;
 
 	SDL_Rect dst;
 	dst.x = (int)entity.GetPos().GetX();

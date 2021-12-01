@@ -20,15 +20,19 @@ void Game::Init()
 
 	playerTexture = window.LoadTexture("res/gfx/Player.png");
 	//backgroundTexture = window.LoadTexture("res/gfx/Background.png");
+	bulletTexture = window.LoadTexture("res/gfx/Player_Bullet.png");
 
 	player.InitPlayer(Vector(400.f, 300.f), playerTexture);
+	bullet.Init(Vector(400.f, 300.f), bulletTexture);
+
+	SDL_ShowCursor(0);
 }
 
 void Game::GameLoop()
 {
 	while (gameRunning)
 	{
-
+		
 		utils::FPS();
 
 		startTicks = SDL_GetTicks();
@@ -44,32 +48,32 @@ void Game::GameLoop()
 			{
 				switch (event.type)
 				{
-				case SDL_QUIT:
-				{
-					gameRunning = false;
-					break;
-				}
-				case SDL_KEYDOWN:
-				{
-					if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+					case SDL_QUIT:
 					{
-						player.Turn(1);
+						gameRunning = false;
+						break;
 					}
-					else if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+					case SDL_KEYDOWN:
 					{
-						player.Turn(-1);
+						if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
+						{
+							player.Move(1);
+						}
+
+						if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
+						{
+							player.Move(-1);
+						}
 					}
 
-					if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
+					case SDL_MOUSEBUTTONDOWN:
 					{
-						player.Move(1);
+						if (event.button.button == SDL_BUTTON_LEFT)
+						{
+							player.Shoot(bullet);
+							//std::cout << bullet.GetPos().GetAngle() << std::endl;
+						}
 					}
-
-					if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
-					{
-						player.Move(-1);
-					}
-				}
 				}
 			}
 			accumulator -= timeStep;
@@ -77,10 +81,17 @@ void Game::GameLoop()
 
 		alpha = accumulator / timeStep;
 
+		SDL_GetMouseState(&mouseX, &mouseY);
+		player.Turn(mouseX, mouseY);
+		
 		window.Clear();
 
 		//window.Render(backgroundTexture, 0.f, 0.f);
-		window.RenderRotate(player, player.GetAngle());
+
+		window.RenderRotate(player, (player.GetAngle() * 180 / 3.14f) + 90);
+
+		window.RenderRotate(bullet, (player.GetAngle() * 180 / 3.14f));
+		bullet.Update();
 
 		player.Update();
 
