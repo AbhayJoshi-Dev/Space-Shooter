@@ -17,13 +17,8 @@ void Game::Init()
 
 	window.CreateWindow("Space Shooter", 800, 600);
 
-
-	playerTexture = window.LoadTexture("res/gfx/Player.png");
-	//backgroundTexture = window.LoadTexture("res/gfx/Background.png");
-	bulletTexture = window.LoadTexture("res/gfx/Player_Bullet.png");
-
-	player.InitPlayer(Vector(400.f, 300.f), playerTexture);
-	bullet.Init(Vector(400.f, 300.f), bulletTexture);
+	player.InitPlayer(Vector(400.f, 300.f), window.LoadTexture("res/gfx/Player.png"));
+	bullet.Init(Vector(400.f, 300.f), window.LoadTexture("res/gfx/Player_Bullet.png"));
 
 	SDL_ShowCursor(0);
 }
@@ -70,8 +65,12 @@ void Game::GameLoop()
 					{
 						if (event.button.button == SDL_BUTTON_LEFT)
 						{
-							player.Shoot(bullet);
-							//std::cout << bullet.GetPos().GetAngle() << std::endl;
+							
+							if (once)
+							{
+								once = false;
+								player.Shoot(bullet);
+							}
 						}
 					}
 				}
@@ -86,11 +85,11 @@ void Game::GameLoop()
 		
 		window.Clear();
 
-		//window.Render(backgroundTexture, 0.f, 0.f);
-
 		window.RenderRotate(player, (player.GetAngle() * 180 / 3.14f) + 90);
 
-		window.RenderRotate(bullet, (player.GetAngle() * 180 / 3.14f));
+		if(!once)
+			window.RenderRotate(bullet, bullet.angle * 180 / 3.14f);
+
 		bullet.Update();
 
 		player.Update();

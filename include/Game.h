@@ -16,10 +16,6 @@ private:
 	SDL_Event event;
 	RenderWindow window;
 
-	SDL_Texture* playerTexture;
-	SDL_Texture* backgroundTexture;
-	SDL_Texture* bulletTexture;
-
 	Player player;
 	Bullet bullet;
 
@@ -33,6 +29,8 @@ private:
 	int frameTicks;
 
 	int mouseX, mouseY;
+
+	bool once = true;
 
 public:
 	Game();

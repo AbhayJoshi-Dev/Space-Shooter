@@ -8,7 +8,8 @@ public:
 	Vector velocity;
 	Vector thrust;
 
-	Bullet();
+	float angle;
+
 	void InitBullet(const Vector& pos, SDL_Texture* tex);
 	void Update();
 };
