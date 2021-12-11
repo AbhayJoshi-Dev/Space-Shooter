@@ -3,13 +3,14 @@
 
 #include"Player.h"
 
-void Player::InitPlayer(const Vector& pos, SDL_Texture* tex)
+Player::Player(const Vector& pos)
+	:Entity(pos)
 {
-	Init(pos, tex);
 	angle = 0.f;
 	velocity.SetLength(0.f);
 	thrust.SetLength(0.01f);
 }
+
 
 void Player::Update()
 {

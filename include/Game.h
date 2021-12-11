@@ -18,6 +18,8 @@ private:
 
 	Player player;
 	Bullet bullet;
+	SDL_Texture* playerTexture;
+	SDL_Texture* bulletTexture;
 
 	const float timeStep = 0.01f;
 	float accumulator = 0.0f;

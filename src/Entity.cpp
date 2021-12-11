@@ -1,14 +1,13 @@
 #include"Entity.h"
 
-void Entity::Init(const Vector& pos, SDL_Texture* tex)
+Entity::Entity(const Vector& pos)
+	:position(pos), texture(NULL)
 {
-	position = pos;
-	texture = tex;
-
 	currentFrame.x = 0;
 	currentFrame.y = 0;
-	SDL_QueryTexture(tex, NULL, NULL, &currentFrame.w, &currentFrame.h);
+	SDL_QueryTexture(texture, NULL, NULL, &currentFrame.w, &currentFrame.h);
 }
+
 
 Vector Entity::GetPos()
 {
@@ -28,4 +27,10 @@ SDL_Texture* Entity::GetTexture()
 SDL_Rect Entity::GetCurrentFrame()
 {
 	return currentFrame;
+}
+
+void Entity::SetTexture(SDL_Texture* tex)
+{
+	texture = tex;
+	SDL_QueryTexture(texture, NULL, NULL, &currentFrame.w, &currentFrame.h);
 }

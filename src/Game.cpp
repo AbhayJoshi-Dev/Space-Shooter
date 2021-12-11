@@ -1,7 +1,7 @@
 #include"Game.h"
 
-Game::Game()
-	:gameRunning(true)
+Game::Game() 
+	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f))
 {
 	Init();
 	GameLoop();
@@ -17,8 +17,11 @@ void Game::Init()
 
 	window.CreateWindow("Space Shooter", 800, 600);
 
-	player.InitPlayer(Vector(400.f, 300.f), window.LoadTexture("res/gfx/Player.png"));
-	bullet.Init(Vector(400.f, 300.f), window.LoadTexture("res/gfx/Player_Bullet.png"));
+	playerTexture = window.LoadTexture("res/gfx/Player.png");
+	bulletTexture = window.LoadTexture("res/gfx/Player_Bullet.png");
+
+	player.SetTexture(playerTexture);
+	bullet.SetTexture(bulletTexture);
 
 	SDL_ShowCursor(0);
 }

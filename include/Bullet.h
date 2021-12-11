@@ -5,11 +5,11 @@
 class Bullet : public Entity
 {
 public:
+	Bullet() = default;
+	Bullet(const Vector& pos);
 	Vector velocity;
 	Vector thrust;
 
 	float angle;
-
-	void InitBullet(const Vector& pos, SDL_Texture* tex);
 	void Update();
 };

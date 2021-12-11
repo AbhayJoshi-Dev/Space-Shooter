@@ -11,8 +11,8 @@ private:
 	float angle;
 	
 public:
-	//Player() = default;
-	void InitPlayer(const Vector& pos, SDL_Texture* tex);
+	Player() = default;
+	Player(const Vector& pos);
 	void Update();
 	void Move(int dir);
 	void Turn(int x, int y);

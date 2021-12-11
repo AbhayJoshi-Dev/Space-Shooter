@@ -11,10 +11,10 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect currentFrame;
 public:
-	//Entity() = default;
-	void Init(const Vector& pos, SDL_Texture* tex);
+	Entity(const Vector& pos);
 	Vector GetPos();
 	void SetPos(const Vector& pos);
 	SDL_Texture* GetTexture();
 	SDL_Rect GetCurrentFrame();
+	void SetTexture(SDL_Texture* tex);
 };

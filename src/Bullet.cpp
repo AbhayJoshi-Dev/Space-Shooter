@@ -1,8 +1,8 @@
 #include"Bullet.h"
 
-void Bullet::InitBullet(const Vector& pos, SDL_Texture* tex)
+Bullet::Bullet(const Vector& pos)
+	:Entity(pos)
 {
-	Init(pos, tex);
 	velocity.SetLength(0.f);
 	thrust.SetLength(0.0f);
 	angle = 0.f;
