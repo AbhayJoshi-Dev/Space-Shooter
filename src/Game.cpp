@@ -1,7 +1,9 @@
 #include"Game.h"
 
-Game::Game() 
-	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f))
+#include<SDL2_gfxPrimitives.h>
+
+Game::Game()
+	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f)), once(true)
 {
 	Init();
 	GameLoop();
@@ -15,7 +17,7 @@ void Game::Init()
 	if (!IMG_Init(IMG_INIT_PNG))
 		std::cout << "ERROR! Failed to initialize SDL_image" << IMG_GetError() << std::endl;
 
-	window.CreateWindow("Space Shooter", 800, 600);
+	window.CreateWindow("Space Shooter", 1280, 720);
 
 	playerTexture = window.LoadTexture("res/gfx/Player.png");
 	bulletTexture = window.LoadTexture("res/gfx/Player_Bullet.png");
@@ -23,7 +25,7 @@ void Game::Init()
 	player.SetTexture(playerTexture);
 	bullet.SetTexture(bulletTexture);
 
-	SDL_ShowCursor(0);
+	//SDL_ShowCursor(0);
 }
 
 void Game::GameLoop()
@@ -51,7 +53,7 @@ void Game::GameLoop()
 						gameRunning = false;
 						break;
 					}
-					case SDL_KEYDOWN:
+					/*case SDL_KEYDOWN:
 					{
 						if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
 						{
@@ -75,7 +77,7 @@ void Game::GameLoop()
 								player.Shoot(bullet);
 							}
 						}
-					}
+					}*/
 				}
 			}
 			accumulator -= timeStep;
@@ -83,12 +85,13 @@ void Game::GameLoop()
 
 		alpha = accumulator / timeStep;
 
-		SDL_GetMouseState(&mouseX, &mouseY);
-		player.Turn(mouseX, mouseY);
-		
+		/*SDL_GetMouseState(&mouseX, &mouseY);
+		player.Turn(mouseX, mouseY);*/
+
+		SDL_SetRenderDrawColor(window.GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 		window.Clear();
 
-		window.RenderRotate(player, (player.GetAngle() * 180 / 3.14f) + 90);
+		/*window.RenderRotate(player, (player.GetAngle() * 180 / 3.14f) + 90);
 
 		if(!once)
 			window.RenderRotate(bullet, bullet.angle * 180 / 3.14f);
@@ -96,6 +99,13 @@ void Game::GameLoop()
 		bullet.Update();
 
 		player.Update();
+		*/
+
+		SDL_RenderSetScale(window.GetRenderer(), 2.f, 2.f);
+
+
+		circleRGBA(window.GetRenderer(), 400, 300, 20, 255, 255, 255, 255);
+
 
 		window.Display();
 

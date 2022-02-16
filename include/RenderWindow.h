@@ -21,4 +21,5 @@ public:
 	void Clear();
 	void Display();
 	void CleanUp();
+	SDL_Renderer* GetRenderer();
 };

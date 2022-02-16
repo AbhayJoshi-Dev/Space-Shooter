@@ -106,3 +106,8 @@ void RenderWindow::CleanUp()
 {
 	SDL_DestroyWindow(window);
 }
+
+SDL_Renderer* RenderWindow::GetRenderer()
+{
+	return renderer;
+}
