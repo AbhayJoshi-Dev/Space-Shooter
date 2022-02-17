@@ -29,15 +29,13 @@ namespace utils
 		fps++;
 	}
 
-	/*inline void FPS()
+	inline float DegreesToRads(float degrees)
 	{
-		float currentTime = (float)SDL_GetTicks();
-		float lastTime = 0.f;
+		return degrees * 3.14f / 180.f;
+	}
 
-		while ((currentTime - lastTime) >= 1000.f)
-		{
-
-		}
-		
-	}*/
+	inline float RadsToDegrees(float Rads)
+	{
+		return Rads * 180.f / 3.14f;
+	}
 }

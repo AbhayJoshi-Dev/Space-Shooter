@@ -3,7 +3,7 @@
 #include<SDL2_gfxPrimitives.h>
 
 Game::Game()
-	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f)), once(true)
+	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f)), once(true), ship(Vector(320.f, 180.f))
 {
 	Init();
 	GameLoop();
@@ -53,20 +53,20 @@ void Game::GameLoop()
 						gameRunning = false;
 						break;
 					}
-					/*case SDL_KEYDOWN:
+					case SDL_KEYDOWN:
 					{
-						if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
+						if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
 						{
-							player.Move(1);
+							ship.Turn(1);
 						}
 
-						if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
+						if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
 						{
-							player.Move(-1);
+							ship.Turn(1);
 						}
 					}
 
-					case SDL_MOUSEBUTTONDOWN:
+					/*case SDL_MOUSEBUTTONDOWN:
 					{
 						if (event.button.button == SDL_BUTTON_LEFT)
 						{
@@ -103,9 +103,7 @@ void Game::GameLoop()
 
 		SDL_RenderSetScale(window.GetRenderer(), 2.f, 2.f);
 
-
-		circleRGBA(window.GetRenderer(), 400, 300, 20, 255, 255, 255, 255);
-
+		ship.Update(window.GetRenderer());
 
 		window.Display();
 
