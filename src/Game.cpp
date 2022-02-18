@@ -1,9 +1,7 @@
 #include"Game.h"
 
-#include<SDL2_gfxPrimitives.h>
-
 Game::Game()
-	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f)), once(true), ship(Vector(320.f, 180.f))
+	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f)), once(true)
 {
 	Init();
 	GameLoop();

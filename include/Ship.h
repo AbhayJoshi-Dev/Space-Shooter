@@ -10,6 +10,7 @@ private:
 	Vector velocity;
 	Vector thrust;
 	float maxSpeed;
+	float ang;
 public:
 	Ship(const Vector& pos);
 	void Update(SDL_Renderer* renderer);

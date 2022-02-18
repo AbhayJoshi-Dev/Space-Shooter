@@ -8,7 +8,6 @@
 #include"Player.h"
 #include"Utils.h"
 #include"Bullet.h"
-#include"Ship.h"
 
 class Game
 {
@@ -34,8 +33,6 @@ private:
 	int mouseX, mouseY;
 
 	bool once = true;
-
-	Ship ship;
 
 public:
 	Game();
