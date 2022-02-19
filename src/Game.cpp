@@ -1,7 +1,7 @@
 #include"Game.h"
 
 Game::Game()
-	:gameRunning(true), player(Vector(400.f, 300.f)), bullet(Vector(400.f, 300.f)), once(true)
+	:gameRunning(true), player(Vector(400.f, 300.f)), circle(Vector(0.f, 0.f))
 {
 	Init();
 	GameLoop();
@@ -17,12 +17,9 @@ void Game::Init()
 
 	window.CreateWindow("Space Shooter", 1280, 720);
 
-	playerTexture = window.LoadTexture("res/gfx/Player.png");
-	bulletTexture = window.LoadTexture("res/gfx/Player_Bullet.png");
+	circle.SetTexture(window.LoadTexture("res/gfx/Circle.png"));
 
-	player.SetTexture(playerTexture);
-	bullet.SetTexture(bulletTexture);
-
+	player.SetTexture(window.LoadTexture("res/gfx/test5.png"));
 	//SDL_ShowCursor(0);
 }
 
@@ -53,29 +50,34 @@ void Game::GameLoop()
 					}
 					case SDL_KEYDOWN:
 					{
-						if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+						if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
 						{
-							ship.Turn(1);
+							player.Move(1);
 						}
 
-						if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+						if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
 						{
-							ship.Turn(1);
+							player.Move(-1);
 						}
+						break;
 					}
 
-					/*case SDL_MOUSEBUTTONDOWN:
+					case SDL_MOUSEBUTTONDOWN:
 					{
 						if (event.button.button == SDL_BUTTON_LEFT)
 						{
-							
-							if (once)
-							{
-								once = false;
-								player.Shoot(bullet);
-							}
+							shooting = true;
 						}
-					}*/
+						break;
+					}
+
+					case SDL_MOUSEBUTTONUP:
+					{
+						if (event.button.button == SDL_BUTTON_LEFT)
+							shooting = false;
+						break;
+					}
+
 				}
 			}
 			accumulator -= timeStep;
@@ -83,25 +85,16 @@ void Game::GameLoop()
 
 		alpha = accumulator / timeStep;
 
-		/*SDL_GetMouseState(&mouseX, &mouseY);
-		player.Turn(mouseX, mouseY);*/
+		SDL_GetMouseState(&mouseX, &mouseY);
+		player.Turn(mouseX, mouseY);
 
-		SDL_SetRenderDrawColor(window.GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 		window.Clear();
 
-		/*window.RenderRotate(player, (player.GetAngle() * 180 / 3.14f) + 90);
-
-		if(!once)
-			window.RenderRotate(bullet, bullet.angle * 180 / 3.14f);
-
-		bullet.Update();
+		if (shooting)
+			player.Shoot();
 
 		player.Update();
-		*/
-
-		SDL_RenderSetScale(window.GetRenderer(), 2.f, 2.f);
-
-		ship.Update(window.GetRenderer());
+		window.RenderRotate(player, utils::RadsToDegrees(player.GetAngle()) + 90.f);
 
 		window.Display();
 

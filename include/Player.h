@@ -1,7 +1,6 @@
 #pragma once
 
 #include"Entity.h"
-#include"Bullet.h"
 
 class Player : public Entity
 {
@@ -16,6 +15,6 @@ public:
 	void Update();
 	void Move(int dir);
 	void Turn(int x, int y);
-	void Shoot(Bullet& e);
 	float GetAngle();
+	void Shoot();
 };

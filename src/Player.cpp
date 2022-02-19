@@ -8,7 +8,7 @@ Player::Player(const Vector& pos)
 {
 	angle = 0.f;
 	velocity.SetLength(0.f);
-	thrust.SetLength(0.01f);
+	thrust.SetLength(0.05f);
 }
 
 
@@ -35,19 +35,17 @@ void Player::Move(int dir)
 
 void Player::Turn(int x, int y)
 {
-	int tempX = x - (int)GetPos().GetX();
-	int tempY = y - (int)GetPos().GetY();
+	int tempX = x - (int)GetPos().GetX() - GetCurrentFrame().w / 2;
+	int tempY = y - (int)GetPos().GetY() - GetCurrentFrame().h / 2;
 	angle = (float)std::atan2(tempY, tempX);
-}
-
-void Player::Shoot(Bullet& bullet)
-{
-	bullet.SetPos(GetPos());
-	bullet.thrust.SetLength(1.f);
-	bullet.angle = GetAngle();
 }
 
 float Player::GetAngle()
 {
 	return angle;
+}
+
+void Player::Shoot()
+{
+	
 }
