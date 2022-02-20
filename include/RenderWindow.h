@@ -17,6 +17,7 @@ public:
 	void Render(Entity& entity);
 	void Render(SDL_Texture* tex, float x, float y);
 	void RenderRotate(Entity& entity, float angle);
+	void RenderScale(Entity& entity, float xScale, float yScale);
 	int GetRefreshRate();
 	void Clear();
 	void Display();

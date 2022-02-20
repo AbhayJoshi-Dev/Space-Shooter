@@ -84,6 +84,23 @@ void RenderWindow::RenderRotate(Entity& entity, float angle)
 	SDL_RenderCopyEx(renderer, entity.GetTexture(), &src, &dst, angle, NULL, SDL_FLIP_NONE);
 }
 
+void RenderWindow::RenderScale(Entity& entity, float xScale, float yScale)
+{
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+	src.w = entity.GetCurrentFrame().w;
+	src.h = entity.GetCurrentFrame().h;
+
+	SDL_Rect dst;
+	dst.x = (int)entity.GetPos().GetX();
+	dst.y = (int)entity.GetPos().GetY();
+	dst.w = src.w * xScale;
+	dst.h = src.h * yScale;
+
+	SDL_RenderCopy(renderer, entity.GetTexture(), &src, &dst);
+}
+
 int RenderWindow::GetRefreshRate()
 {
 	int displayIndex = SDL_GetWindowDisplayIndex(window);

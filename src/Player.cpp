@@ -47,5 +47,8 @@ float Player::GetAngle()
 
 void Player::Shoot()
 {
+	float tempX = GetPos().GetX() + GetCurrentFrame().w / 2 + std::cos(GetAngle()) * GetCurrentFrame().h / 2;
+	float tempY = GetPos().GetY() + GetCurrentFrame().h / 2 + std::sin(GetAngle()) * GetCurrentFrame().h / 2;
 	
+	particles.ShootSplash(tempX, tempY);
 }

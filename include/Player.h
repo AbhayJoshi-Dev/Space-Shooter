@@ -8,6 +8,7 @@ private:
 	Vector velocity;
 	Vector thrust;
 	float angle;
+	Particles particles;
 	
 public:
 	Player() = default;

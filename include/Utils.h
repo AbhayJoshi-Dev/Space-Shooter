@@ -38,4 +38,9 @@ namespace utils
 	{
 		return Rads * 180.f / 3.14f;
 	}
+
+	inline float Lerp(float min, float max, float norm)
+	{
+		return (max - min) * norm + min;
+	}
 }
