@@ -43,4 +43,10 @@ namespace utils
 	{
 		return (max - min) * norm + min;
 	}
+
+	inline int Random(int p_max, int p_min)
+	{
+
+		return (rand() % (p_max - p_min + 1)) + p_min;
+	}
 }

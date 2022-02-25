@@ -1,4 +1,5 @@
 #include<cmath>
+#include<time.h>
 
 #include"Game.h"
 
@@ -88,6 +89,8 @@ void Game::GameLoop()
 
 		alpha = accumulator / timeStep;
 
+		srand((unsigned int)time(0));
+
 		SDL_GetMouseState(&mouseX, &mouseY);
 		player.Turn(mouseX, mouseY);
 
@@ -104,8 +107,8 @@ void Game::GameLoop()
 		float tempY = player.GetPos().GetY() + player.GetCurrentFrame().h / 2 + std::sin(player.GetAngle()) * player.GetCurrentFrame().h / 2;
 
 		dx -= 0.001f;
-		float cx = utils::Lerp(0.f, circle.GetCurrentFrame().w, dx);
-		float cy = utils::Lerp(0.f, circle.GetCurrentFrame().h, dx);
+		float cx = utils::Lerp(0.f, (float)circle.GetCurrentFrame().w, dx);
+		float cy = utils::Lerp(0.f, (float)circle.GetCurrentFrame().h, dx);
 		circle.SetPos(Vector(tempX - cx / 2, tempY - cy / 2));
 		window.RenderScale(circle, utils::Lerp(0.f, 1.f, dx), utils::Lerp(0.f, 1.f, dx));
 
