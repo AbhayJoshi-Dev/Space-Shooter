@@ -2,6 +2,7 @@
 #include<vector>
 
 #include"Vector.h"
+#include"RenderWindow.h"
 
 struct ParticleProps
 {
@@ -20,13 +21,13 @@ private:
 		Vector position;
 		Vector velocity;
 		int colorBegin[4], colorEnd[4];
-		float Rotation = 0.0f;
-		float SizeBegin, SizeEnd;
+		float rotation = 0.0f;
+		float sizeBegin, sizeEnd;
 
-		float LifeTime = 1.0f;
-		float LifeRemaining = 0.0f;
+		float lifeTime = 1.0f;
+		float lifeRemaining = 0.0f;
 
-		bool Active = false;
+		bool active = false;
 	};
 	std::vector<Particle> particlePool;
 	uint32_t poolIndex = 999;
@@ -34,6 +35,6 @@ private:
 public:
 	ParticleSystem();
 
-	void OnUpdate();
+	void OnUpdate(RenderWindow& window);
 	void Emit(const ParticleProps& particleProps);
 };
