@@ -20,7 +20,7 @@ private:
 	{
 		Vector position;
 		Vector velocity;
-		int colorBegin[4], colorEnd[4];
+		float colorBegin[4], colorEnd[4];
 		float rotation = 0.0f;
 		float sizeBegin, sizeEnd;
 
@@ -35,6 +35,7 @@ private:
 public:
 	ParticleSystem();
 
-	void OnUpdate(RenderWindow& window);
+	void OnUpdate();
+	void OnRender(RenderWindow& window);
 	void Emit(const ParticleProps& particleProps);
 };

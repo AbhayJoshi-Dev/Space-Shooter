@@ -89,7 +89,7 @@ void Game::GameLoop()
 
 		alpha = accumulator / timeStep;
 
-		srand((unsigned int)time(0));
+		srand(static_cast <unsigned> (time(0)));
 
 		SDL_GetMouseState(&mouseX, &mouseY);
 		player.Turn(mouseX, mouseY);
@@ -99,7 +99,7 @@ void Game::GameLoop()
 		if (shooting)
 			player.Shoot();
 
-		player.Update();
+		player.Update(window);
 		window.RenderRotate(player, utils::RadsToDegrees(player.GetAngle()) + 90.f);
 
 

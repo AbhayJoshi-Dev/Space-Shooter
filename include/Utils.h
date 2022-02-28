@@ -48,4 +48,9 @@ namespace utils
 	{
 		return (rand() % (p_max - p_min + 1)) + p_min;
 	}
+
+	inline float RandomFloat(float min, float max)
+	{
+		return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+	}
 }

@@ -1,5 +1,6 @@
 #include<cmath>
 #include<iostream>
+#include<SDL.h>
 
 #include"Player.h"
 
@@ -9,14 +10,50 @@ Player::Player(const Vector& pos)
 	angle = 0.f;
 	velocity.SetLength(0.f);
 	thrust.SetLength(0.05f);
+
+	particle.colorBegin[0] = 254.f / 255.0f;
+	particle.colorBegin[1] = 212.f / 255.f;
+	particle.colorBegin[2] = 123.f / 255.f;
+	particle.colorBegin[3] = 1.f;
+
+	particle.colorEnd[0] = 254.f / 255.0f;
+	particle.colorEnd[1] = 109.f / 255.f;
+	particle.colorEnd[2] = 41.f / 255.f;
+	particle.colorEnd[3] = 1.f;
+
+	particle.sizeBegin = 0.5f;
+	particle.sizeVariation = 0.3f;
+	particle.sizeEnd = 0.0f;
+
+	particle.lifeTime = 1.f;
+	particle.velocity.SetLength(0.f);
+
+	particle.velocityVariation = Vector(5.f, 1.f);
+
+	particle.position = Vector(0.f, 0.f);
+
+
 }
 
 
-void Player::Update()
+void Player::Update(RenderWindow& window)
 {
-	SetPos(GetPos() + velocity);
+	(GetPos() + velocity);
 
 	thrust.SetAngle(angle);
+
+	for (int i = 0; i < 5; i++)
+		particleSystem.Emit(particle);
+
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+
+
+	particle.position = Vector(x, y);
+
+	particleSystem.OnUpdate();
+	particleSystem.OnRender(window);
+
 }
 
 void Player::Move(int dir)
@@ -47,7 +84,7 @@ float Player::GetAngle()
 
 void Player::Shoot()
 {
-	float tempX = GetPos().GetX() + GetCurrentFrame().w / 2 + std::cos(GetAngle()) * GetCurrentFrame().h / 2;
-	float tempY = GetPos().GetY() + GetCurrentFrame().h / 2 + std::sin(GetAngle()) * GetCurrentFrame().h / 2;
+	//float tempX = GetPos().GetX() + (float)GetCurrentFrame().w / 2 + std::cos(GetAngle()) * GetCurrentFrame().h / 2;
+	//float tempY = GetPos().GetY() + (float)GetCurrentFrame().h / 2 + std::sin(GetAngle()) * GetCurrentFrame().h / 2;
 	
 }
