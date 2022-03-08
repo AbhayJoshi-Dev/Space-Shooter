@@ -1,5 +1,4 @@
 #include<cmath>
-#include<time.h>
 
 #include"Game.h"
 
@@ -25,6 +24,8 @@ void Game::Init()
 
 	player.SetTexture(window.LoadTexture("res/gfx/test5.png"));
 	//SDL_ShowCursor(0);
+
+
 }
 
 void Game::GameLoop()
@@ -89,7 +90,7 @@ void Game::GameLoop()
 
 		alpha = accumulator / timeStep;
 
-		srand(static_cast <unsigned> (time(0)));
+	//	srand(static_cast <unsigned> (time(0)));
 
 		SDL_GetMouseState(&mouseX, &mouseY);
 		player.Turn(mouseX, mouseY);
@@ -100,6 +101,7 @@ void Game::GameLoop()
 			player.Shoot();
 
 		player.Update(window);
+
 		window.RenderRotate(player, utils::RadsToDegrees(player.GetAngle()) + 90.f);
 
 

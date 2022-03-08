@@ -3,6 +3,7 @@
 
 #include"Vector.h"
 #include"RenderWindow.h"
+#include"Random.h"
 
 struct ParticleProps
 {

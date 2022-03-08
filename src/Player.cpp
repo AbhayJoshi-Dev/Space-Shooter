@@ -3,6 +3,7 @@
 #include<SDL.h>
 
 #include"Player.h"
+#include"Random.h"
 
 Player::Player(const Vector& pos)
 	:Entity(pos)
@@ -25,12 +26,14 @@ Player::Player(const Vector& pos)
 	particle.sizeVariation = 0.3f;
 	particle.sizeEnd = 0.0f;
 
-	particle.lifeTime = 1.f;
-	particle.velocity.SetLength(0.f);
+	particle.lifeTime = 10.f;
+	particle.velocity.SetLength(2.f);
 
 	particle.velocityVariation = Vector(5.f, 1.f);
 
 	particle.position = Vector(0.f, 0.f);
+
+	particle.velocity.SetAngle(Random::Float() + 360.f);
 
 
 }
@@ -42,7 +45,7 @@ void Player::Update(RenderWindow& window)
 
 	thrust.SetAngle(angle);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 1; i++)
 		particleSystem.Emit(particle);
 
 	int x, y;
@@ -51,8 +54,8 @@ void Player::Update(RenderWindow& window)
 
 	particle.position = Vector(x, y);
 
-	particleSystem.OnUpdate();
 	particleSystem.OnRender(window);
+	particleSystem.OnUpdate();
 
 }
 
