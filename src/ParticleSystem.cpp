@@ -61,6 +61,7 @@ void ParticleSystem::Emit(const ParticleProps& particleProps)
 	particle.rotation = Random::Float() * 2.0f * 3.14f;
 
 	particle.velocity = particleProps.velocity;
+	particle.velocity.SetAngle(90);
 	particle.velocity = particle.velocity + Vector(particleProps.velocityVariation.GetX() * (Random::Float()), particleProps.velocityVariation.GetY() * (Random::Float()));
 	
 	for (int i = 0; i < 4; i++)

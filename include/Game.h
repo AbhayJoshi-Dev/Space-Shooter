@@ -31,7 +31,6 @@ private:
 	bool shooting = false;
 	Entity circle;
 	float dx = 1.f;
-
 public:
 	Game();
 	void Init();

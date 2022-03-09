@@ -24,8 +24,6 @@ void Game::Init()
 
 	player.SetTexture(window.LoadTexture("res/gfx/test5.png"));
 	//SDL_ShowCursor(0);
-
-
 }
 
 void Game::GameLoop()
@@ -105,7 +103,7 @@ void Game::GameLoop()
 		window.RenderRotate(player, utils::RadsToDegrees(player.GetAngle()) + 90.f);
 
 
-		float tempX = player.GetPos().GetX() + player.GetCurrentFrame().w / 2 + std::cos(player.GetAngle()) * player.GetCurrentFrame().h / 2;
+		/*float tempX = player.GetPos().GetX() + player.GetCurrentFrame().w / 2 + std::cos(player.GetAngle()) * player.GetCurrentFrame().h / 2;
 		float tempY = player.GetPos().GetY() + player.GetCurrentFrame().h / 2 + std::sin(player.GetAngle()) * player.GetCurrentFrame().h / 2;
 
 		dx -= 0.001f;
@@ -113,7 +111,7 @@ void Game::GameLoop()
 		float cy = utils::Lerp(0.f, (float)circle.GetCurrentFrame().h, dx);
 		circle.SetPos(Vector(tempX - cx / 2, tempY - cy / 2));
 		window.RenderScale(circle, utils::Lerp(0.f, 1.f, dx), utils::Lerp(0.f, 1.f, dx));
-
+		*/
 		window.Display();
 
 		frameTicks = SDL_GetTicks() - startTicks;
