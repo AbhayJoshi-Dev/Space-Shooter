@@ -24,6 +24,7 @@ void Game::Init()
 
 	player.SetTexture(window.LoadTexture("res/gfx/test5.png"));
 	//SDL_ShowCursor(0);
+	player.ProjectileInit(window);
 }
 
 void Game::GameLoop()

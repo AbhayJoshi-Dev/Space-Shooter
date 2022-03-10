@@ -6,7 +6,7 @@
 #include"Random.h"
 
 Player::Player(const Vector& pos)
-	:Entity(pos)
+	:Entity(pos), projectile()
 {
 	angle = 0.f;
 	velocity.SetLength(0.f);
@@ -35,6 +35,10 @@ Player::Player(const Vector& pos)
 	*/
 }
 
+void Player::ProjectileInit(RenderWindow& window)
+{
+	projectile.Init(window);
+}
 
 void Player::Update(RenderWindow& window)
 {
@@ -84,6 +88,5 @@ float Player::GetAngle()
 
 void Player::Shoot()
 {
-	
 	
 }
