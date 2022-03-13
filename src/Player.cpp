@@ -6,38 +6,11 @@
 #include"Random.h"
 
 Player::Player(const Vector& pos)
-	:Entity(pos), projectile()
+	:Entity(pos), projectileTexture(NULL), shootingCooldown(false), cooldownTime(0.5f), previousTime(0.f)
 {
 	angle = 0.f;
 	velocity.SetLength(0.f);
 	thrust.SetLength(0.05f);
-
-	/*particle.colorBegin[0] = 254.f / 255.0f;
-	particle.colorBegin[1] = 212.f / 255.f;
-	particle.colorBegin[2] = 123.f / 255.f;
-	particle.colorBegin[3] = 1.f;
-
-	particle.colorEnd[0] = 254.f / 255.0f;
-	particle.colorEnd[1] = 109.f / 255.f;
-	particle.colorEnd[2] = 41.f / 255.f;
-	particle.colorEnd[3] = 1.f;
-
-	particle.sizeBegin = 0.5f;
-	particle.sizeVariation = 0.3f;
-	particle.sizeEnd = 0.0f;
-
-	particle.lifeTime = 2.f;
-	particle.velocity.SetLength(1.f);
-
-	particle.velocityVariation = Vector(5.f, 1.f);
-
-	particle.position = Vector(0.f, 0.f);
-	*/
-}
-
-void Player::ProjectileInit(RenderWindow& window)
-{
-	projectile.Init(window);
 }
 
 void Player::Update(RenderWindow& window)
@@ -46,18 +19,16 @@ void Player::Update(RenderWindow& window)
 
 	thrust.SetAngle(angle);
 
-	/*for (int i = 0; i < 5; i++)
-		particleSystem.Emit(particle);
+	for (int i = 0; i < projectiles.size(); i++)
+	{
+		projectiles[i].Update();
+	}
+	if (shootingCooldown && (utils::HireTimeInSeconds() - previousTime) > cooldownTime)
+	{
+		previousTime = utils::HireTimeInSeconds();
+		shootingCooldown = false;
+	}
 
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-
-
-	particle.position = Vector(x, y);
-
-	particleSystem.OnRender(window);
-	particleSystem.OnUpdate();
-	*/
 }
 
 void Player::Move(int dir)
@@ -88,5 +59,34 @@ float Player::GetAngle()
 
 void Player::Shoot()
 {
-	
+	if (shootingCooldown)
+		return;
+
+	shootingCooldown = true;
+
+	float tempX = GetPos().GetX() + GetCurrentFrame().w / 2 + std::cos(GetAngle()) * GetCurrentFrame().h / 2;
+	float tempY = GetPos().GetY() + GetCurrentFrame().h / 2 + std::sin(GetAngle()) * GetCurrentFrame().h / 2;
+
+	int w, h;
+	SDL_QueryTexture(projectileTexture, NULL, NULL, &w, &h);
+	tempX -= w / 2;
+	tempY -= h / 2;
+
+	Vector projectileVelocity;
+	projectileVelocity.SetLength(5.f);
+	projectileVelocity.SetAngle(thrust.GetAngle());
+
+	Projectile newProjectile(Vector(tempX, tempY), projectileVelocity, projectileTexture);
+	projectiles.emplace_back(newProjectile);
+	//return newProjectile;
+}
+
+void Player::SetProjectileTexture(SDL_Texture* tex)
+{
+	projectileTexture = tex;
+}
+
+std::vector<Projectile>& Player::GetProjectiles()
+{
+	return projectiles;
 }

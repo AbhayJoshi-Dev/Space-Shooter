@@ -1,19 +1,15 @@
 #pragma once
-#include<vector>
 
 #include"Entity.h"
 #include"RenderWindow.h"
 
-class Projectile
+class Projectile : public Entity
 {
 private:
-	std::vector<Entity> active;
-	std::vector<Entity> inActive;
-	uint32_t poolIndex = 50;
-
+	Vector velocity;
+	float bulletSpeed;
+	
 public:
-	Projectile();
-	void Init(RenderWindow& window);
-	Entity Active();
-	void InActive();
+	Projectile(Vector pos, Vector velocity, SDL_Texture* tex);
+	void Update();
 };

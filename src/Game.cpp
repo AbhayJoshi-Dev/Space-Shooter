@@ -23,8 +23,8 @@ void Game::Init()
 	circle.SetTexture(window.LoadTexture("res/gfx/Circle.png"));
 
 	player.SetTexture(window.LoadTexture("res/gfx/test5.png"));
+	player.SetProjectileTexture(window.LoadTexture("res/gfx/Projectile.png"));
 	//SDL_ShowCursor(0);
-	player.ProjectileInit(window);
 }
 
 void Game::GameLoop()
@@ -103,6 +103,10 @@ void Game::GameLoop()
 
 		window.RenderRotate(player, utils::RadsToDegrees(player.GetAngle()) + 90.f);
 
+		for (int i = 0; i < player.GetProjectiles().size(); i++)
+		{
+			window.Render(player.GetProjectiles()[i]);
+		}
 
 		/*float tempX = player.GetPos().GetX() + player.GetCurrentFrame().w / 2 + std::cos(player.GetAngle()) * player.GetCurrentFrame().h / 2;
 		float tempY = player.GetPos().GetY() + player.GetCurrentFrame().h / 2 + std::sin(player.GetAngle()) * player.GetCurrentFrame().h / 2;

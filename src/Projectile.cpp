@@ -1,32 +1,17 @@
+#include<iostream>
+
 #include"Projectile.h"
 
-Projectile::Projectile()
+Projectile::Projectile(Vector pos, Vector velocity, SDL_Texture* tex)
+	:Entity(pos), bulletSpeed(1.f)
 {
-	active.reserve(50);
-	inActive.reserve(50);
-
-	for (int i = 0; i < poolIndex; i++)
-	{
-		inActive.emplace_back(Vector(0.f, 0.f));
-	}
+	this->velocity = velocity;
+	SetTexture(tex);
 }
 
-void Projectile::Init(RenderWindow& window)
+void Projectile::Update()
 {
-	for (int i = 0; i < poolIndex; i++)
-	{
-		inActive[i].SetTexture(window.LoadTexture("res/gfx/Projectile.png"));
-	}
-}
-
-Entity Projectile::Active()
-{
-
-
-	return Entity(Vector(0.f, 0.f));
-}
-
-void Projectile::InActive()
-{
-
+	Vector tempPos = GetPos();
+	tempPos.AddTo(velocity);
+	SetPos(tempPos);
 }

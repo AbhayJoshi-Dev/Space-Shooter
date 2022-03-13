@@ -1,9 +1,12 @@
 #pragma once
 
+#include<vector>
+
 #include"Entity.h"
 #include"ParticleSystem.h"
 #include"Projectile.h"
 #include"RenderWindow.h"
+#include"Utils.h"
 
 
 class Player : public Entity
@@ -16,15 +19,21 @@ private:
 	ParticleProps particle;
 	ParticleSystem particleSystem;
 
-	Projectile projectile;
+	std::vector<Projectile> projectiles;
+
+	SDL_Texture* projectileTexture;
+	bool shootingCooldown;
+	float cooldownTime;
+	float previousTime;
 	
 public:
 	Player() = default;
 	Player(const Vector& pos);
-	void ProjectileInit(RenderWindow& window);
 	void Update(RenderWindow& window);
 	void Move(int dir);
 	void Turn(int x, int y);
 	float GetAngle();
 	void Shoot();
+	void SetProjectileTexture(SDL_Texture* tex);
+	std::vector<Projectile>& GetProjectiles();
 };
