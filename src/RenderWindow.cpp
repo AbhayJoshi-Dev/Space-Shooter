@@ -95,8 +95,8 @@ void RenderWindow::RenderScale(Entity& entity, float xScale, float yScale)
 	SDL_Rect dst;
 	dst.x = (int)entity.GetPos().GetX();
 	dst.y = (int)entity.GetPos().GetY();
-	dst.w = src.w * xScale;
-	dst.h = src.h * yScale;
+	dst.w = int(src.w * xScale);
+	dst.h = int(src.h * yScale);
 
 	SDL_RenderCopy(renderer, entity.GetTexture(), &src, &dst);
 }

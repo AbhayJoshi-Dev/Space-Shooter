@@ -22,6 +22,13 @@ void Player::Update(RenderWindow& window)
 	for (int i = 0; i < projectiles.size(); i++)
 	{
 		projectiles[i].Update();
+
+		if (projectiles[i].GetPos().GetX() > 1285.f || projectiles[i].GetPos().GetY() > 725.f || 
+			projectiles[i].GetPos().GetX() < -5.f || projectiles[i].GetPos().GetY() < -5.f)
+		{
+			projectiles.erase(projectiles.begin() + i);
+		}
+
 	}
 	if (shootingCooldown && (utils::HireTimeInSeconds() - previousTime) > cooldownTime)
 	{
@@ -29,6 +36,18 @@ void Player::Update(RenderWindow& window)
 		shootingCooldown = false;
 	}
 
+	//Player edge handling
+	if (GetPos().GetX() - GetCurrentFrame().h > 1280.f)
+		SetPos(Vector((float)-GetCurrentFrame().h, GetPos().GetY()));
+
+	if (GetPos().GetX() + GetCurrentFrame().h < 0.f)
+		SetPos(Vector(1280 + (float)GetCurrentFrame().h, GetPos().GetY()));
+
+	if (GetPos().GetY() - GetCurrentFrame().h > 720.f)
+		SetPos(Vector(GetPos().GetX(), (float)-GetCurrentFrame().h));
+
+	if (GetPos().GetY() + GetCurrentFrame().h < 0.f)
+		SetPos(Vector(GetPos().GetX(), 720 + (float)GetCurrentFrame().h));
 }
 
 void Player::Move(int dir)
@@ -41,8 +60,6 @@ void Player::Move(int dir)
 	{
 		velocity.SubTo(thrust);
 	}
-	//if (velocity.GetLength() > 1.f)
-	//	velocity.SetLength(1.f);
 }
 
 void Player::Turn(int x, int y)

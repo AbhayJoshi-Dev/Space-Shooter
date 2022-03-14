@@ -39,8 +39,8 @@ void ParticleSystem::OnRender(RenderWindow& window)
 		float size = utils::Lerp(particle.sizeEnd, particle.sizeBegin, life);
 
 		SDL_Rect rect;
-		rect.x = particle.position.GetX();
-		rect.y = particle.position.GetY();
+		rect.x = (int)particle.position.GetX();
+		rect.y = (int)particle.position.GetY();
 		rect.w = 12;
 		rect.h = 12;
 

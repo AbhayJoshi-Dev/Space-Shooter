@@ -9,7 +9,7 @@ struct ParticleProps
 {
 	Vector position;
 	Vector velocity, velocityVariation;
-	int colorBegin[4], colorEnd[4];
+	float colorBegin[4], colorEnd[4];
 	float sizeBegin, sizeEnd, sizeVariation;
 	float lifeTime = 1.0f;
 };
