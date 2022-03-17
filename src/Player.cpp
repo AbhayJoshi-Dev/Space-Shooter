@@ -23,17 +23,18 @@ void Player::Update(RenderWindow& window)
 	{
 		projectiles[i].Update();
 
-		if (projectiles[i].GetPos().GetX() > 1285.f || projectiles[i].GetPos().GetY() > 725.f || 
+		if (projectiles[i].GetPos().GetX() > 1285.f || projectiles[i].GetPos().GetY() > 725.f ||
 			projectiles[i].GetPos().GetX() < -5.f || projectiles[i].GetPos().GetY() < -5.f)
 		{
 			projectiles.erase(projectiles.begin() + i);
 		}
-
 	}
-	if (shootingCooldown && (utils::HireTimeInSeconds() - previousTime) > cooldownTime)
+	if ((utils::HireTimeInSeconds() - previousTime) > cooldownTime)
 	{
 		previousTime = utils::HireTimeInSeconds();
-		shootingCooldown = false;
+
+		if (shootingCooldown)
+			shootingCooldown = false;
 	}
 
 	//Player edge handling
@@ -78,6 +79,8 @@ void Player::Shoot()
 {
 	if (shootingCooldown)
 		return;
+
+	std::cout << "Shooting" << std::endl;
 
 	shootingCooldown = true;
 
